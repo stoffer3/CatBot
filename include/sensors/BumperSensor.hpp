@@ -22,9 +22,11 @@ public:
   int init();
   bool getReading();
   void reset();
+  int start();
+  void stop();
 
 private:
-  void doWork();
+  void interruptHandler();
   uint8_t triggerPin;
   bool isTriggered;
 };

@@ -23,20 +23,21 @@
 
 namespace RobotController
 {
-  class RobotController {
-    public:
-    RobotController();
-    int init();
-    const RobotWorldMap::RobotWorldMap &getRobotWorldMap();
-    void updateWorldMap();
-    void setAction(RobotAction::RobotAction &&action);
-    void setDriveDirection(const std::vector<int> &vector);
-    void setDriveRotate(const double& rotate);
-    void setDrivingState(const bool& state);
-    bool isBumperActivated();
-    static RobotController &Instance();
+class RobotController
+{
+public:
+  RobotController();
+  int init();
+  const RobotWorldMap::RobotWorldMap &getRobotWorldMap();
+  void updateWorldMap();
+  void setAction(RobotAction::RobotAction &&action);
+  void setDriveDirection(const std::vector<int> &vector);
+  void setDriveRotate(const double &rotate);
+  void setDrivingState(const bool &state);
+  bool isBumperActivated();
+  static RobotController &Instance();
 
-    private:
+private:
   std::unique_ptr<RobotWorldMap::RobotWorldMap> robotWorldMap;
   std::unique_ptr<std::queue<RobotAction::RobotAction>> actions;
   std::unordered_map<std::string, std::unique_ptr<RobotDevice::Device>> *devices;
@@ -47,8 +48,8 @@ namespace RobotController
   static std::unique_ptr<RobotController> instance;
   static std::once_flag onceFlag;
   std::unordered_map<std::string, std::unique_ptr<RobotDevice::Device>> *getDevices();
-  void executeActions();
+  void executeActions();  
   bool isInitialized() const;
   static void NofityInit();
-  };
+};
 } /* namespace RobotController */

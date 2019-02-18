@@ -18,6 +18,8 @@ namespace RobotDevice::Sensor
     int init();
     int getReading();
     void reset();
+    int start();
+    void stop();
   private:
     void doWork();
   };

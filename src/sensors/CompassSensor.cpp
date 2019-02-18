@@ -36,4 +36,14 @@ namespace RobotDevice::Sensor
   {
 
   }
+
+  int CompassSensor::start()
+  {
+    return 0;
+  }
+
+  void CompassSensor::stop()
+  {
+    
+  }
 } /* namespace RobotSensor */

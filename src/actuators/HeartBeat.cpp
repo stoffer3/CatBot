@@ -38,4 +38,23 @@ namespace RobotDevice::Actuator
 
     return 0;
   }
+
+  int HeartBeat::start()
+  {
+    execution = true;
+    executionThread =  new std::thread([&]() {
+      while(execution)
+      {
+         doWork();
+         std::this_thread::sleep_for(std::chrono::milliseconds(threadSleepTime));
+      }
+    });
+    return 0;
+  }
+
+  void HeartBeat::stop()
+  {
+    execution = false;
+    executionThread->join();
+  }
 } /* namespace RobotSensor */

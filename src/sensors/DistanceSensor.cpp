@@ -39,7 +39,17 @@ namespace RobotDevice::Sensor
   {
   }
 
-  void DistanceSensor::doWork()
+  void DistanceSensor::interruptHandler()
+  {
+    
+  }
+
+  int DistanceSensor::start()
+  {
+
+  }
+
+  void DistanceSensor::stop()
   {
 
   }

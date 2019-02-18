@@ -28,7 +28,6 @@ namespace RobotDevice::Actuator
     bool isMotorEnable() const;
 
   private:
-    void doWork();
     uint8_t forwardPwmPin, backwardPwmPin, motorEnablePin, forwardSpeed, backwardSpeed;
     int8_t speed;
     bool motorEnable;

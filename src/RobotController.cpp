@@ -68,18 +68,18 @@ void RobotController::executeActions()
       setDrivingState(true);
       break;
     case RobotAction::RobotAction::STOP:
-      setDrivingState(false);
+      //setDrivingState(false);
       break;
     case RobotAction::RobotAction::ROTATE:
-      setDriveRotate(action.rotate);
+      //setDriveRotate(action.rotate);
       break;
     case RobotAction::RobotAction::DIRECTION:
       setDriveDirection(*(action.driveDirection));
       break;
     default:
       break;
-    }                                                                                                                                                                                                                                                                                                       
-                    
+    }
+
     actions->pop();
   }
 }
@@ -106,19 +106,18 @@ void RobotController::setDriveDirection(const std::vector<int> &vector)
   dynamic_cast<RobotDevice::Actuator::Motor &>(*devices->find("rightMotor")->second).setSpeed(100);
 }
 
-void RobotController::setDriveRotate(const double& rotate)
+void RobotController::setDriveRotate(const double &rotate)
 {
-
 }
 
-void RobotController::setDrivingState(const bool& state)
+void RobotController::setDrivingState(const bool &state)
 {
   if (state)
   {
     dynamic_cast<RobotDevice::Actuator::Motor &>(*devices->find("leftMotor")->second).start();
     dynamic_cast<RobotDevice::Actuator::Motor &>(*devices->find("rightMotor")->second).start();
   }
-  else 
+  else
   {
     dynamic_cast<RobotDevice::Actuator::Motor &>(*devices->find("leftMotor")->second).stop();
     dynamic_cast<RobotDevice::Actuator::Motor &>(*devices->find("rightMotor")->second).stop();
@@ -128,7 +127,7 @@ void RobotController::setDrivingState(const bool& state)
 bool RobotController::isBumperActivated()
 {
   auto value = false;
-  if(!robotWorldMap->frontBumperActivated)
+  if (!robotWorldMap->frontBumperActivated)
   {
     value = dynamic_cast<RobotDevice::Sensor::BumperSensor &>(*devices->find("frontBumper")->second).getReading();
     dynamic_cast<RobotDevice::Sensor::BumperSensor &>(*devices->find("frontBumper")->second).reset();

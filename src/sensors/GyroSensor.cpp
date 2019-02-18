@@ -39,4 +39,14 @@ namespace RobotDevice::Sensor
   {
 
   }
+
+  int GyroSensor::start()
+  {
+    return 0;
+  }
+
+  void GyroSensor::stop()
+  {
+    
+  }
 } /* namespace RobotSensor */

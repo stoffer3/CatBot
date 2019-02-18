@@ -40,4 +40,14 @@ namespace RobotDevice::Sensor
 
   }
 
+  int AccelerometerSensor::start()
+  {
+    return 0;
+  }
+
+  void AccelerometerSensor::stop()
+  {
+
+  }
+
 } /* namespace RobotSensor */

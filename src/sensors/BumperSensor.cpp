@@ -7,40 +7,67 @@
 
 #include "../../include/sensors/BumperSensor.hpp"
 #include <wiringPi.h>
+#include <functional>
+#include <iostream>
 
 namespace RobotDevice::Sensor
 {
+ static std::function<void()> fptrInterruptHandler;
 
-  BumperSensor::BumperSensor(uint8_t triggerPin)
-  {
-    this->triggerPin = triggerPin;
-    this->isTriggered = false;
-  }
+BumperSensor::BumperSensor(uint8_t triggerPin)
+{
+  this->triggerPin = triggerPin;
+  this->isTriggered = false;
+  fptrInterruptHandler = std::bind(&RobotDevice::Sensor::BumperSensor::interruptHandler, this);
+}
 
-  BumperSensor::~BumperSensor()
-  {
-    // TODO Auto-generated destructor stub
-  }
+BumperSensor::~BumperSensor()
+{
+  // TODO Auto-generated destructor stub
+}
 
-  int BumperSensor::init()
-  {
-    pinMode(triggerPin, INPUT);
-    return 0;
-  }
+void BumperSensor::interruptHandler()
+{
+  isTriggered = true;
+  std::cout << "BumperSensor Interrupt" << std::endl;
+}
 
-  bool BumperSensor::getReading()
-  {
-    return isTriggered;
-  }
+void callbackWrapper()
+{
+ fptrInterruptHandler();
+}
 
-  void BumperSensor::reset()
-  {
-    isTriggered = false;
-  }
+int BumperSensor::init()
+{
+  pinMode(triggerPin, INPUT);
+  pullUpDnControl(triggerPin, PUD_UP);  
+  wiringPiISR(triggerPin, INT_EDGE_FALLING, &callbackWrapper);
+  return 0;
+}
 
-  void BumperSensor::doWork()
-  {
-    if(!isTriggered)
-      isTriggered = !digitalRead(triggerPin);
-  }
-} /* namespace RobotSensor */
+bool BumperSensor::getReading()
+{
+  return isTriggered;
+}
+
+void BumperSensor::reset()
+{
+  isTriggered = false;
+}
+
+// void BumperSensor::doWork()
+// {
+//   if(!isTriggered)
+//     isTriggered = !digitalRead(triggerPin);
+// }
+
+int BumperSensor::start()
+{
+  return 0;
+}
+
+void BumperSensor::stop()
+{
+}
+
+} // namespace RobotDevice::Sensor

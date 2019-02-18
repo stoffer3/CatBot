@@ -12,14 +12,17 @@
 
 namespace RobotDevice::Sensor
 {
-  template<typename T>
-  class Sensor : public Device
-  {
-  public:
-    Sensor();
-    virtual ~Sensor();
-    virtual T getReading() = 0;
-    virtual void reset() = 0;
-  };
+template <typename T>
+class Sensor : public Device
+{
+public:
+  Sensor();
+  virtual ~Sensor();
+  virtual T getReading() = 0;
+  virtual void reset() = 0;
 
-} /* namespace RobotSensor */
+private:
+  virtual void interruptHandler() = 0;
+};
+
+} // namespace RobotDevice::Sensor

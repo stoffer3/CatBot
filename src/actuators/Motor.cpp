@@ -41,7 +41,6 @@ namespace RobotDevice::Actuator
   {
     digitalWrite(motorEnablePin, TRUE);
     motorEnable = true;
-    Actuator::start();
 
     return 0;
   }
@@ -50,15 +49,7 @@ namespace RobotDevice::Actuator
   {
     digitalWrite(motorEnablePin, FALSE);
     motorEnable = false;
-    Actuator::stop();
   }
-
-  void Motor::doWork()
-  {
-    softPwmWrite(forwardPwmPin, forwardSpeed);
-    softPwmWrite(backwardPwmPin, backwardSpeed);
-  }
-
 
   int8_t Motor::getSpeed() const
   {
@@ -71,6 +62,8 @@ namespace RobotDevice::Actuator
     this->speed = speed;
     this->backwardSpeed = speed < 0 ? std::abs(speed) : 0;
     this->forwardSpeed = speed >= 0 ? speed : 0;
+    softPwmWrite(forwardPwmPin, forwardSpeed);
+    softPwmWrite(backwardPwmPin, backwardSpeed);
   }
 
   bool Motor::isMotorEnable() const

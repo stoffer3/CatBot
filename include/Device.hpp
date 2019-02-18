@@ -10,6 +10,7 @@
 #define DEFAULT_THREAD_SLEEP_TIME 100
 
 #include <thread>
+#include <atomic>
 
 namespace RobotDevice
 {
@@ -19,16 +20,11 @@ public:
   Device();
   virtual ~Device();
   virtual int init() = 0;
-  virtual int start();
-  virtual void stop();
-
-private:
-  virtual void doWork() = 0;
-  bool execution = false;
-  std::thread *executionThread = nullptr;
+  virtual int start() = 0;
+  virtual void stop() = 0;
 
 protected:
-  uint32_t threadSleepTime = DEFAULT_THREAD_SLEEP_TIME;
+  std::atomic_bool execution = false;
 };
 
-} /* namespace RobotController */
+} // namespace RobotDevice
